@@ -1,4 +1,4 @@
-TOKEN = "7057303701:AAF4W886QWzMlBMTZx1MvXgn2-MnN0jdbyk"
+TOKEN = "7057303701:AAEymdcxwRuk58c8EE1iZ94PaVYbhHQD7-c"
 
 # Supported currencies
 CURRENCIES = ["UZS", "RUB", "USD"]
