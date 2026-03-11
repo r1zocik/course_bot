@@ -1,4 +1,6 @@
-TOKEN = "7057303701:AAEymdcxwRuk58c8EE1iZ94PaVYbhHQD7-c"
+import os
+
+TOKEN = os.environ.get("TOKEN", "")
 
 # Supported currencies
 CURRENCIES = ["UZS", "RUB", "USD"]
