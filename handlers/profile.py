@@ -6,7 +6,7 @@ from keyboards.reply import main_menu_keyboard
 
 def register_handlers(bot: TeleBot):
 
-    @bot.message_handler(func=lambda m: m.text in ["ℹ️ Мой профиль", "ℹ️ Mening profilim", "ℹ️ My profile"])
+    @bot.message_handler(func=lambda m: m.text == "ℹ️ Мой профиль")
     def my_profile(message: Message):
         user_id = message.from_user.id
         if not is_registered(user_id):
@@ -15,7 +15,7 @@ def register_handlers(bot: TeleBot):
 
         user = get_user(user_id)
         if user:
-            _, name, phone, *_, registered_at = user
+           _, name, phone, *_, registered_at = user
             bot.send_message(
                 user_id,
                 f"👤 <b>Ваш профиль</b>\n\n"
@@ -25,5 +25,5 @@ def register_handlers(bot: TeleBot):
                 f"📅 Регистрация: <b>{registered_at[:10]}</b>\n"
                 f"{'─' * 25}",
                 parse_mode="HTML",
-                reply_markup=main_menu_keyboard(user_id)
+                reply_markup=main_menu_keyboard()
             )
