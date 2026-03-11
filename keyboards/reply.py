@@ -6,6 +6,7 @@ def main_menu_keyboard():
     kb.add(
         KeyboardButton("💱 Конвертировать"),
         KeyboardButton("🏦 Курсы банков"),
+        KeyboardButton("📊 Лучшие курсы"),
         KeyboardButton("ℹ️ Мой профиль"),
     )
     return kb

@@ -5,7 +5,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 import telebot
 from config import TOKEN
 from database.db import init_db
-from handlers import registration, converter, banks, profile
+from handlers import registration, converter, banks, profile, best_rates
 
 bot = telebot.TeleBot(TOKEN, parse_mode=None)
 
@@ -17,6 +17,7 @@ registration.register_handlers(bot)
 converter.register_handlers(bot)
 banks.register_handlers(bot)
 profile.register_handlers(bot)
+best_rates.register_handlers(bot)
 
 
 @bot.message_handler(func=lambda m: True)
