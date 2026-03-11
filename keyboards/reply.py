@@ -1,13 +1,19 @@
 from telebot.types import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove
 
 
-def main_menu_keyboard():
+def main_menu_keyboard(user_id: int = None):
+    from lang import t
+    uid = user_id or 0
+
     kb = ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
     kb.add(
-        KeyboardButton("💱 Конвертировать"),
-        KeyboardButton("🏦 Курсы банков"),
-        KeyboardButton("📊 Лучшие курсы"),
-        KeyboardButton("ℹ️ Мой профиль"),
+        KeyboardButton(t(uid, "btn_convert")),
+        KeyboardButton(t(uid, "btn_banks")),
+        KeyboardButton(t(uid, "btn_best")),
+        KeyboardButton("🗺 Обменники"),
+        KeyboardButton(t(uid, "btn_profile")),
+        KeyboardButton(t(uid, "btn_support")),
+        KeyboardButton(t(uid, "btn_language")),
     )
     return kb
 
