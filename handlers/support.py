@@ -5,7 +5,7 @@ from keyboards.reply import main_menu_keyboard
 from lang import t
 
 # ⚠️ Замени на свой Telegram username администратора
-ADMIN_USERNAME = "@your_admin_username"
+ADMIN_USERNAME = "@mansurovpy"
 ADMIN_USER_ID = None  # Можно указать числовой ID для пересылки сообщений
 
 
