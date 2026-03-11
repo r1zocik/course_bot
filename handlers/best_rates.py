@@ -20,7 +20,7 @@ CURRENCY_FLAGS = {
 
 def register_handlers(bot: TeleBot):
 
-    @bot.message_handler(func=lambda m: m.text == "📊 Лучшие курсы")
+    @bot.message_handler(func=lambda m: m.text in ["📊 Лучшие курсы", "📊 Eng yaxshi kurslar", "📊 Best rates"])
     def best_rates(message: Message):
         user_id = message.from_user.id
         if not is_registered(user_id):
@@ -29,7 +29,6 @@ def register_handlers(bot: TeleBot):
 
         msg = bot.send_message(user_id, "⏳ Собираю курсы всех банков, подождите...")
 
-        # Collect rates from all banks
         all_data = {}
         for bank in BANKS:
             try:
@@ -44,14 +43,10 @@ def register_handlers(bot: TeleBot):
         for cur in ["USD", "RUB"]:
             flag = CURRENCY_FLAGS[cur]
 
-            # Find best buy (highest buy = выгоднее продать банку)
             best_buy_bank = None
             best_buy_val = -1
-            # Find best sell (lowest sell = выгоднее купить у банка)
             best_sell_bank = None
             best_sell_val = float("inf")
-
-            # Worst rates
             worst_buy_bank = None
             worst_buy_val = float("inf")
             worst_sell_bank = None
@@ -83,9 +78,8 @@ def register_handlers(bot: TeleBot):
 
             result += f"{flag} <b>{cur} / UZS</b>\n"
             result += f"{'─' * 28}\n"
-
-            # Table header
             result += f"{'Банк':<18} {'Покупка':>9} {'Продажа':>9}\n"
+
             for bank, buy, sell, icon in rows:
                 short = bank.replace(" (Natsbank)", "").replace(" Bank", "")
                 buy_str = format_number(buy)
@@ -114,5 +108,5 @@ def register_handlers(bot: TeleBot):
             user_id,
             f"📊 <b>Сравнение курсов всех банков</b>\n\n{result}",
             parse_mode="HTML",
-            reply_markup=main_menu_keyboard()
+            reply_markup=main_menu_keyboard(user_id)
         )
