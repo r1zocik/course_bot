@@ -6,7 +6,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 import telebot
 from config import TOKEN
 from database.db import init_db
-from handlers import registration, converter, banks, profile, best_rates
+from handlers import registration, converter, banks, profile, best_rates, language, support, exchange_map
 from scheduler import start_scheduler
 
 bot = telebot.TeleBot(TOKEN, parse_mode=None)
