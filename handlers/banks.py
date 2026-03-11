@@ -33,7 +33,7 @@ CURRENCY_FLAGS = {
 
 def register_handlers(bot: TeleBot):
 
-    @bot.message_handler(func=lambda m: m.text == "🏦 Курсы банков")
+    @bot.message_handler(func=lambda m: m.text in ["🏦 Курсы банков", "🏦 Bank kurslari", "🏦 Bank rates"])
     def start_banks(message: Message):
         user_id = message.from_user.id
         if not is_registered(user_id):
@@ -54,7 +54,7 @@ def register_handlers(bot: TeleBot):
 
         if message.text == "🔙 Назад":
             del bank_states[user_id]
-            bot.send_message(user_id, "Главное меню:", reply_markup=main_menu_keyboard())
+            bot.send_message(user_id, "Главное меню:", reply_markup=main_menu_keyboard(user_id))
             return
 
         bank = BANK_NAMES.get(message.text)
@@ -116,14 +116,12 @@ def register_handlers(bot: TeleBot):
 
         del bank_states[user_id]
 
-        # Conversions
         lines = ""
         for to_cur in ["UZS", "RUB", "USD"]:
             if to_cur != from_cur:
                 val = convert(amount, from_cur, to_cur, bank_rates)
                 lines += f"  {CURRENCY_FLAGS[to_cur]} {to_cur}: <b>{format_number(val)}</b>\n"
 
-        # Buy/sell rates for each currency
         rate_lines = ""
         for cur in ["USD", "RUB"]:
             info = full_info.get(cur, {})
@@ -147,5 +145,5 @@ def register_handlers(bot: TeleBot):
             f"📈 <b>Курсы {bank}:</b>\n{rate_lines}"
             f"🌐 = данные bank.uz  |  📊 = расчётный",
             parse_mode="HTML",
-            reply_markup=main_menu_keyboard()
+            reply_markup=main_menu_keyboard(user_id)
         )
