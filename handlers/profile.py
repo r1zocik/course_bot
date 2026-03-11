@@ -15,7 +15,7 @@ def register_handlers(bot: TeleBot):
 
         user = get_user(user_id)
         if user:
-            _, name, phone, registered_at = user
+           _, name, phone, *_, registered_at = user
             bot.send_message(
                 user_id,
                 f"👤 <b>Ваш профиль</b>\n\n"
